@@ -1,31 +1,19 @@
 import fileinput
 
-population_size = {
-    0:0,
-    1:0,
-    2:0,
-    3:0,
-    4:0,
-    5:0,
-    6:0,
-    7:0,
-    8:0
-}
-
 def simulation(population: list, days: int):
-    current_size = population_size.copy()
+    current_size = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     for member in population:
         current_size[member] += 1
     for day in range(days):
-        new_population = population_size.copy()
-        for days_remaining, size in current_size.items():
+        new_population = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for days_remaining, size in enumerate(current_size):
             if days_remaining == 0:
                 new_population[6] += size
                 new_population[8] += size
             else:
                 new_population[days_remaining - 1] += size
         current_size = new_population
-    return sum(current_size.values())
+    return sum(current_size)
 
 
 
