@@ -16,7 +16,7 @@ def get_risk_levels(points):
     return lower_points
 
 
-def get_one_higher_neighbours(x, y, points):
+def get_higher_neighbours(x, y, points):
     neighbours = get_neighbours(x+1, y+1, points)
     return [(x1, y1, num) for x1, y1, num in neighbours if num > points[y+1][x+1] and num != 9]
 
@@ -25,13 +25,13 @@ def get_basins_sizes(points):
     basins = []
     for x, y, num in get_risk_levels(points):
         basin = [(x, y, num)]
-        basin_neighbours = get_one_higher_neighbours(x, y, points)
+        basin_neighbours = get_higher_neighbours(x, y, points)
         basin.extend(basin_neighbours)
         while basin_neighbours:
             new_basin_neighbours = []
             for x1, y1, num1 in basin_neighbours:
                 new_basin_neighbours.extend(
-                    get_one_higher_neighbours(x1, y1, points))
+                    get_higher_neighbours(x1, y1, points))
             basin_neighbours = new_basin_neighbours
             basin.extend(basin_neighbours)
         basins.append(set(basin))
